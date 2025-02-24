@@ -1,6 +1,6 @@
 dist/
 node_modules/
-src/fontawesome-free-6.6.0-web/
+src/fontawesome-free-6.6.0-web
 src/fonts
 
 # Logs

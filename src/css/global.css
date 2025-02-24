@@ -1,4 +1,7 @@
-@font-face {
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Roboto font from local dir, ../fonts/"..." */
+/* @font-face {
     font-family: 'Roboto Condensed';
     src: url('../fonts/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
     font-weight: 300 400 700;
@@ -9,7 +12,7 @@
     src: url('../fonts/Roboto_Condensed/RobotoCondensed-Italic-VariableFont_wght.ttf') format('truetype');
     font-weight: 300 400 700;
     font-style: italic;
-}
+} */
 
 *{
     font-family: 'Roboto Condensed', sans-serif;
