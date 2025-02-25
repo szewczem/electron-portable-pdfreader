@@ -61,6 +61,14 @@
     text-transform: capitalize;
     text-align: center;
     padding-bottom: 1rem;
+    font-size: 1.6rem;
+    font-weight: 600;
+}
+
+.help-content .help-subtitle {
+    padding: 1rem 0 0.3rem 0;
+    font-size: 1.2rem;
+    font-weight: 600;
 }
 
 /* home-section */
@@ -68,6 +76,8 @@
     position: fixed;
     top: 0;
     width: 100%;
+    height: 2.1rem;
+    line-height: 2.1rem;
     background-color: var(--whiteColor);
     display: grid;
     grid-template-columns: 10rem 1fr 8rem;
@@ -80,6 +90,7 @@
 }
 
 .home-section .menu-btn {
+    height: 100%;
     font-size: 1.2rem;
     color: #000;
     font-weight: 700;
@@ -90,6 +101,7 @@
 }
 
 .home-section .header-title {
+    height: 100%;
     text-transform: capitalize;
     text-align: right;
     font-size: 1.2rem;
@@ -130,7 +142,10 @@
 }
 
 .home-section .header-title-end {
+    height: 100%;
     text-transform: capitalize;
+    align-items: center;
+    text-align: center;
     font-size: 1.9rem;
     font-weight: 700;
     background-color: var(--whiteColor);
@@ -140,6 +155,7 @@
 }
 
 .home-section .help-btn {
+    height: 100%;
     font-size: 1.2rem;
     background-color: var(--darkBlue);
     color: var(--whiteColor);
