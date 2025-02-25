@@ -17,15 +17,14 @@
   "build": {
     "portable": {
       "useZip": true,
-      "splashImage": "./splash.bmp"
+      "splashImage": "./src/icon/splash.bmp"
     },
-    "productName": "EPP TEST",
+    "productName": "EPP",
     "directories": {
       "output": "dist"
     },
     "asar": true,
     "files": [
-      "splash.bmp",
       "src/**/*",
       "package.json",
       "!node_modules/**/*",

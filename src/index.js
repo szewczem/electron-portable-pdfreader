@@ -27,9 +27,9 @@ function createWindow() {
     show: false,
     width: 750,
     height: 630,
-    title: 'TEST',
+    title: 'EPP',
     center:true,
-    //autoHideMenuBar: true,
+    autoHideMenuBar: true,
     icon: path.join(__dirname, 'icon/logo_1000_1000.png'),
     webPreferences: {
       nativeWindowOpen: true,
@@ -84,13 +84,11 @@ function createWindow() {
 
   // open external url in a default web browser //
   mainWindow.webContents.on('will-navigate', function(e, reqUrl) {
-    console.log(reqUrl)
-    let getHost = url => require('url').parse(url).host;
-    let reqHost = getHost(reqUrl);
-    let isExternal = reqHost && reqHost !== getHost(mainWindow.webContents.getURL());
-    if(isExternal || reqUrl.includes('https')) {
+    //console.log(reqUrl)
+    let isExternal = reqUrl.includes('https')
+    if(isExternal) {
       e.preventDefault();
-      shell.openExternal(reqUrl, {});
+      shell.openExternal(reqUrl);
     }
   });
 };
@@ -100,26 +98,24 @@ ipcMain.on('open-new-window', (event, url) => {
   newWindow = new BrowserWindow({
     width: 750,
     height: 630,
-    //autoHideMenuBar: true,
-    title: 'GLADIUS',
+    autoHideMenuBar: true,
+    title: 'EPP',
     icon: path.join(__dirname, 'icon/logo_1000_1000.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
-  });
-  
+  });  
   //newWindow.setTitle(newTitle);
   newWindow.loadURL(`${path.join(__dirname, 'index.html' + url)}`);  
 
   // open external url in a default web browser //
   newWindow.webContents.on('will-navigate', function(e, reqUrl) {
-    let getHost = url => require('url').parse(url).host;
-    let reqHost = getHost(reqUrl);
-    let isExternal = reqHost && reqHost !== getHost(newWindow.webContents.getURL());
+    //console.log(reqUrl)
+    let isExternal = reqUrl.includes('https')
     if(isExternal) {
       e.preventDefault();
-      shell.openExternal(reqUrl, {});
-    } 
+      shell.openExternal(reqUrl);
+    }
   });
 });
 

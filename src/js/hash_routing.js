@@ -1,4 +1,4 @@
-const pageTitle = "TEST";
+const pageTitle = "EPP";
 
 const pages = {
   TEST1_A: '<iframe class="pdf" src="./doc/section1/TEST1_A.pdf#page=1&view=fitV"></iframe>',
