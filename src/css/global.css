@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Roboto font from local dir, ../fonts/"..." */
+/* @font-face {
+    font-family: 'Roboto Condensed';
+    src: url('../fonts/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
+    font-weight: 300 400 700;
+}
+
+@font-face {
+    font-family: 'Roboto Condensed';
+    src: url('../fonts/Roboto_Condensed/RobotoCondensed-Italic-VariableFont_wght.ttf') format('truetype');
+    font-weight: 300 400 700;
+    font-style: italic;
+} */
+
+*{
+    font-family: 'Roboto Condensed', sans-serif;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    caret-color: transparent;
+}
+
+:root {
+    --darkBlue: rgb(26, 48, 119);
+    --lightBlue: rgb(0, 114, 188);
+    --whiteColor: white;
+    --grayColor: #e0e0e0;    
+}
+
+body {    
+    height: 100vh;
+    overflow-x: hidden;  
+    font-size: 18px;
+    line-height: 27px;
+    -webkit-user-select: none;
+    user-select: none;
+    min-width: 40rem;
+}
+

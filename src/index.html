@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" href="./icon/logo_32x32.png" type="image/png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" type="text/css" href="./fontawesome-free-6.6.0-web/css/all.min.css">    
+    <link rel="stylesheet" type="text/css" href="./css/style.css">
+
+    <title>EPP TEST APP</title>
+</head>
+<body>
+    <div class="layer" id="layer"></div>
+    <div class="help-info">
+        <div class="help-content">
+            <p class="help-title">help section</p>
+            
+            <p class="help-subtitle">New window</p>
+            <p>To open pdf in a new window, press <b>Shift + left mouse click</b> on the selected pdf in the MENU.</p>
+
+            <p class="help-subtitle">PDF Viewer</p>
+            <p>Documents are displayed by PDF Viewer. The toolbar at the top of the window allows you to select a page and zoom, adjust the width/height of the window, rotate pages, save, print, and set the view of two pages of the document. Documents with a table of contents allow you to select a specific chapter from the document table.</p>
+            
+            <p class="help-subtitle">Download and print function</p>
+            <p>All pdf contained in the application can be downloaded and printed. The saving process, depending on the size of the saved file, can take from a few to a dozen or so seconds.</p>
+            <p>It is recommended to save the pdf to disk using the "Download" function.</p>
+        </div>
+    </div>
+
+    <header>
+        <div class="home-section">
+            <div class="menu-btn">
+                <p>
+                    <i class="fa-solid fa-list"></i> menu
+                </p>  
+            </div>
+            <div class="header-title">
+                main page
+            </div> 
+            <div class="header-title-end">|
+                <div></div>
+                <div class="help-btn">help</div>
+            </div>
+
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="nav">        
+            <div class="nav-header">
+                <a class="menu-title">EPP TEST APP</a>
+                <a class="close-btn">
+                    <i class="fas fa-times"></i>
+                </a>
+            </div>             
+            <ul>
+                <li class="dropdown"><a class="page-title" href="#main">main page</a></li>  
+                <li class="dropdown"><p class="arrow-title">section 1<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><a class="page-title" href="#TEST1_A">test1 A</a></li>
+                        <li><a class="page-title" href="#TEST1_B">test1 B</a></li>
+                        <li><a class="page-title" href="#TEST1_C">test1 C</a></li>
+                    </ul>
+                </li>      
+                <li class="dropdown"><p class="arrow-title">section 2<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><a class="page-title" href="#TEST2_A">test2 A</a></li>
+                        <li><a class="page-title" href="#TEST2_B">test2 B</a></li>
+                        <li><a class="page-title" href="#TEST2_C">test2 C</a></li>
+                    </ul>
+                </li>
+                <li class="dropdown"><p class="arrow-title">section 3<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><p class="arrow-title">subsection A<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST3A_A">test3A A</a></li>
+                                <li><a class="page-title" href="#TEST3A_B">test3A B</a></li>
+                                <li><a class="page-title" href="#TEST3A_C">test3A C</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection B<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST3B_A">test3B A</a></li>
+                                <li><a class="page-title" href="#TEST3B_B">test3B B</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection C<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST3C_A">test3C A</a></li>
+                                <li><a class="page-title" href="#TEST3C_B">test3C B</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><p class="arrow-title">section 4<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><p class="arrow-title">subsection A<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST4A_A">test4A A</a></li>
+                                <li><a class="page-title" href="#TEST4A_B">test4A B</a></li>
+                                <li><a class="page-title" href="#TEST4A_B">test4A C</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection B<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST4B_A">test4B A</a></li>
+                                <li><a class="page-title" href="#TEST4B_B">test4B B</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection C<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST4C_A">test4C A</a></li>
+                                <li><a class="page-title" href="#TEST4C_B">test4C B</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection D<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST4D_A">test4D A</a></li>
+                            </ul>
+                        </li><li><p class="arrow-title">subsection E<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST4E_A">test4E A</a></li>
+                                <li><a class="page-title" href="#TEST4E_B">test4E B</a></li>
+                                <li><a class="page-title" href="#TEST4E_C">test4E C</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><p class="arrow-title">section 5<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><p class="arrow-title">subsection A<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST5A_A">test5A A</a></li>
+                                <li><a class="page-title" href="#TEST5A_B">test5A B</a></li>
+                                <li><a class="page-title" href="#TEST5A_C">test5A C</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection B<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST5B_A">test5B A</a></li>
+                                <li><a class="page-title" href="#TEST5B_B">test5B A</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection C<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST5C_A">test5C A</a></li>
+                                <li><a class="page-title" href="#TEST5C_B">test5C B</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection D<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST5D_A">test5D A</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection E<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST5E_A">test5E A</a></li>
+                                <li><a class="page-title" href="#TEST5E_B">test5E B</a></li>
+                                <li><a class="page-title" href="#TEST5E_C">test5E C</a></li>
+                            </ul>
+                        </li>                        
+                        <li><p class="arrow-title">subsection F<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST5F_A">test5F A</a></li>
+                                <li><a class="page-title" href="#TEST5F_B">test5F B</a></li>
+                                <li><a class="page-title" href="#TEST5F_C">test5F C</a></li>
+                            </ul>
+                        </li>                        
+                    </ul>
+                </li>
+                <li class="dropdown"><p class="arrow-title">section 6<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><p class="arrow-title">subsection A<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST6A_A">test6A A</a></li>
+                                <li><a class="page-title" href="#TEST6A_B">test6A B</a></li>
+                                <li><a class="page-title" href="#TEST6A_C">test6A C</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection B<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST6B_A">test6B A</a></li>
+                                <li><a class="page-title" href="#TEST6B_B">test6B B</a></li>
+                                <li><a class="page-title" href="#TEST6B_C">test6B C</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection C<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST6C_A">test6C A</a></li>
+                                <li><a class="page-title" href="#TEST6C_B">test6C B</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection D<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST6D_A">test6D A</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li class="dropdown"><p class="arrow-title">section 7<i class="fa fa-caret-down"></i></p>
+                    <ul class="sub-menu">
+                        <li><p class="arrow-title">subsection A<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7A_A">test7A A</a></li>
+                                <li><a class="page-title" href="#TEST7A_B">test7A A</a></li>
+                                <li><a class="page-title" href="#TEST7A_C">test7A A</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection B<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7B_A">test7B A</a></li>
+                                <li><a class="page-title" href="#TEST7B_B">test7B B</a></li>
+                                <li><a class="page-title" href="#TEST7B_C">test7B C</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection C<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7C_A">test7C A</a></li>
+                                <li><a class="page-title" href="#TEST7C_B">test7C B</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection D<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7D_A">test7D A</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection E<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7E_A">test7E A</a></li>
+                                <li><a class="page-title" href="#TEST7E_B">test7E B</a></li>
+                                <li><a class="page-title" href="#TEST7E_C">test7E C</a></li>
+                                <li><a class="page-title" href="#TEST7E_D">test7E D</a></li>
+                            </ul>
+                        </li>
+                        <li><p class="arrow-title">subsection F<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7F_A">test7F A</a></li>
+                                <li><a class="page-title" href="#TEST7F_B">test7F B</a></li>
+                                <li><a class="page-title" href="#TEST7F_C">test7F C</a></li>
+                                <li><a class="page-title" href="#TEST7F_D">test7F D</a></li>
+                                <li><a class="page-title" href="#TEST7F_E">test7F E</a></li>
+                            </ul>
+                        </li>                        
+                        <li><p class="arrow-title">subsection G<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7G_A">test7G A</a></li>
+                                <li><a class="page-title" href="#TEST7G_B">test7G B</a></li>
+                            </ul>
+                        </li>                        
+                        <li><p class="arrow-title">subsection H<i class="fa fa-caret-down"></i></p>
+                            <ul class="sub-menu">
+                                <li><a class="page-title" href="#TEST7H_A">test7H A</a></li>
+                                <li><a class="page-title" href="#TEST7H_B">test7H B</a></li>
+                            </ul>
+                        </li>                        
+                    </ul>
+                </li>
+                <li class="dropdown"><a class="page-title" href="#contact">contact</a></li>
+            </ul>            
+        </nav>
+    </div>
+
+    <main class="main">        
+        <div class="pdf-container" id="pdf-container"></div>        
+    </main>  
+
+    <script src="./js/script.js"></script>
+    <script src="./js/hash_routing.js"></script>
+    <script type="text/javascript" src="./fontawesome-free-6.6.0-web/js/all.min.js"></script>    
+</body>
+<script src="./renderer.js"></script>
+</html>

@@ -1,0 +1,41 @@
+{
+  "name": "electron_portable_pdfreader",
+  "version": "1.0.0",
+  "description": "test",
+  "main": "./src/index.js",
+  "devDependencies": {
+    "electron": "^34.2.0",
+    "electron-builder": "^25.1.8",
+    "electron-packager": "^17.1.2"
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder -w portable"
+  },
+  "author": "szewczem",
+  "license": "MIT",
+  "build": {
+    "portable": {
+      "useZip": true,
+      "splashImage": "./src/icon/splash.bmp"
+    },
+    "productName": "EPP",
+    "directories": {
+      "output": "dist"
+    },
+    "asar": true,
+    "files": [
+      "src/**/*",
+      "package.json",
+      "!node_modules/**/*",
+      "!package-lock.json"
+    ],
+    "win": {
+      "icon": "./src/icon/icon.ico",
+      "target": "portable",
+      "artifactName": "${productName}.exe"
+    },
+    "mac": {},
+    "linux": {}
+  }
+}
