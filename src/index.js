@@ -1,32 +1,19 @@
-const { app, BrowserWindow, Menu, ipcMain, dialog, shell } = require('electron');
+const { app, BrowserWindow, ipcMain, dialog, shell } = require('electron');
 const path = require('node:path');
 const fs = require('fs');
+const urlModule = require('url');
 
 
-let mainWindow;
-let newWindow;
+///// Track windows /////
+let windowIdCounter = 0;
+let windows = new Map();
 
-// Hide aplication default menubar //
-Menu.setApplicationMenu(false);
-
-// Start a browser window //
-app.whenReady().then(() => {
-  createWindow();
-
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) {
-      createWindow();
-    }
-  });  
-});
-
-// Create a browser window //
+///// Create browser window /////
 function createWindow() {
-  if (mainWindow) return;
-  mainWindow = new BrowserWindow({    
+  let mainWindow = new BrowserWindow({    
     show: false,
-    width: 750,
-    height: 630,
+    width: 984,
+    height: 668,
     title: 'EPP',
     center:true,
     autoHideMenuBar: true,
@@ -36,21 +23,25 @@ function createWindow() {
       preload: path.join(__dirname, 'preload.js'),
     }
   });  
+
   mainWindow.maximize();  
   mainWindow.loadFile(path.join(__dirname, 'index.html'));
 
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-
   mainWindow.once('ready-to-show', () => {
     mainWindow.show()
-  })
+  });
 
-  // Open the DevTools //
-  //mainWindow.webContents.openDevTools();    
+  mainWindow.on('closed', () => {
+    mainWindow = null;
+    windows.delete(0);
+  });
+
+  windows.set(0, { win: mainWindow, hashUrl: '#main' });
+
+  ///// Open the DevTools /////
+  // mainWindow.webContents.openDevTools(); 
   
-  // Download PDF //
+  ///// Download PDF /////
   mainWindow.webContents.session.on('will-download', (event, item) => {
     event.preventDefault();
     const filename = item.getFilename();    // getting pdf name
@@ -67,7 +58,7 @@ function createWindow() {
     //console.log(savePath);  
     //console.log(`Downloading: ${pdfPath} to ${savePath}`);
 
-    // creating custom dialog for downloading //
+    ///// Create custom dialog for downloading /////
     dialog.showSaveDialog({
       title: 'Save PDF',
       defaultPath: savePath,
@@ -82,7 +73,7 @@ function createWindow() {
     });    
   });
 
-  // open external url in a default web browser //
+  ///// Open external url in a default web browser /////
   mainWindow.webContents.on('will-navigate', function(e, reqUrl) {
     //console.log(reqUrl)
     let isExternal = reqUrl.includes('https')
@@ -93,22 +84,66 @@ function createWindow() {
   });
 };
 
-// Open hash-based url in a new window //
+///// Start browser window /////
+app.whenReady().then(() => {
+  createWindow(); 
+});
+
+///// Open hash-based url in a new window /////
 ipcMain.on('open-new-window', (event, url) => {
-  newWindow = new BrowserWindow({
-    width: 750,
-    height: 630,
+  ///// Focus and hide menubar for "newWindow" if exist /////  
+  // console.log(`\nRequest to open: ${url}`);
+  // console.log('Currently tracked windows:');
+  // for (const [id, winObj] of windows.entries()) {
+  //   console.log(` - ID: ${id} | hashUrl: ${winObj.hashUrl}`);
+  // }    // console checking + line below
+
+  for (const [id, winObj] of windows.entries()) {
+    if (!winObj.win.isDestroyed() && winObj.hashUrl === url) {
+      // console.log(`Already oppened (ID: ${id})`);
+      winObj.win.focus();
+      winObj.win.webContents.send('hide-dom-menu');
+      return;
+    }
+  }
+
+  ///// If "newWindow" doesn't exist, update and create /////
+  const id = ++windowIdCounter;
+
+  const newWindow = new BrowserWindow({
+    width: 984,
+    height: 668,
     autoHideMenuBar: true,
+    show: false,
     title: 'EPP',
     icon: path.join(__dirname, 'icon/logo_1000_1000.png'),
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
     },
   });  
-  //newWindow.setTitle(newTitle);
-  newWindow.loadURL(`${path.join(__dirname, 'index.html' + url)}`);  
+  
+  const loadUrl = urlModule.format({
+    pathname: path.join(__dirname, 'index.html'),
+    protocol: 'file:',
+    slashes: true,
+    hash: url,
+  });
+  
+  newWindow.maximize(); 
+  newWindow.loadURL(loadUrl);  
 
-  // open external url in a default web browser //
+  newWindow.once('ready-to-show', () => {
+    newWindow.show()
+  });
+
+  ///// Store in map /////
+  windows.set(id, { win: newWindow, hashUrl: url });
+
+  newWindow.on('closed', () => {
+    windows.delete(id);
+  }); 
+
+  ///// Open external url in a default web browser /////
   newWindow.webContents.on('will-navigate', function(e, reqUrl) {
     //console.log(reqUrl)
     let isExternal = reqUrl.includes('https')
@@ -119,11 +154,22 @@ ipcMain.on('open-new-window', (event, url) => {
   });
 });
 
+ipcMain.on('update-window-url', (event, newHashUrl) => {
+  const senderWindow = BrowserWindow.fromWebContents(event.sender);
+
+  for (const [id, winObj] of windows.entries()) {
+    if (winObj.win === senderWindow) {
+      winObj.hashUrl = newHashUrl;
+      break;
+    }
+  }
+});
+
 app.on('before-quit', () => {
   app.exit(0);
 });
 
-// Quit when all windows are closed //
+///// Quit when all windows are closed /////
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
