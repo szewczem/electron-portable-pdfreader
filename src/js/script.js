@@ -1,4 +1,4 @@
-// open&close dropdown menu //
+///// Open & close dropdown menu /////
 function dropdownSubmenu(){
   let dropdown = document.querySelectorAll('.dropdown');
   document.querySelectorAll('.arrow-title').forEach(arrow => {
@@ -18,74 +18,88 @@ function dropdownSubmenu(){
           let submenuArrow = dropdownList.children[i].children[0].childNodes[1];
           submenuList.classList.remove('open');          
           submenuArrow.classList.remove('active');
-        };        
-      };
+        }      
+      }
     });
   });
-};
-dropdownSubmenu();
+}
 
-// close all sub-menus //
+const layer = document.querySelector('.layer');
+const container = document.querySelector('.container');
+const closeBtn = document.querySelector('.close-btn');
+const menuBtn = document.querySelector('.menu-btn');
+const subMenu = document.querySelectorAll('.sub-menu');
+const nav = document.querySelector('.nav');
+const helpBtn = document.querySelector('.help-btn');
+const helpInfo = document.querySelector('.help-info');
+
+///// Close all sub-menus in menu /////
 function closeMenuComponents(){
   let allArrows = document.querySelectorAll('.fa-caret-down');
   for (i = 0; i < subMenu.length; i++) {
     let rotatedArrow = allArrows[i];
     let openedSubMenu = subMenu[i];
-    if (openedSubMenu.classList.contains('open') && rotatedArrow.classList.contains('active')) {
+    if (
+      openedSubMenu.classList.contains('open') && 
+      rotatedArrow.classList.contains('active')
+    ) {
       //console.log('opened')
       openedSubMenu.classList.remove('open');
       rotatedArrow.classList.remove('active');
-    };
-  };  
+    }
+  }
+}
+
+///// Open & close sidebar via menu button /////
+function toggleMenu() {
+  container.classList.toggle('active');
+  layer.classList.toggle('active');
+  nav.scrollTo(0, 0);
+}
+
+///// Close menu via close button / escape key /////
+function hideMenu() {
+  container.classList.remove('active');
+  layer.classList.remove('active');
+  closeMenuComponents();
+}
+
+function hideMenuIfEscapeKey(event) {
+  if (event.key === 'Escape' || event.key === 'Esc') {
+    hideMenu()
+  }
+}
+
+///// Show help window / close help window /////
+function showHelpInfo() {
+  layer.classList.add('active');
+  helpInfo.classList.add('active');
+}
+
+function hideHelpInfo() {
   layer.classList.remove('active');
   helpInfo.classList.remove('active');
-};
+}
 
-// open&close sidebar //
-let layer = document.querySelector('.layer');
-let container = document.querySelector(".container");
-let closeBtn = document.querySelector('.close-btn');
-let menuBtn = document.querySelector('.menu-btn');
-let subMenu = document.querySelectorAll('.sub-menu');
-let nav = document.querySelector('.nav');
+///// Hide menu / help window when clicked outside /////
+function hideIfClickOutside(event) {
+  if (
+    !container.contains(event.target) &&
+    !menuBtn.contains(event.target) &&
+    !helpBtn.contains(event.target)
+  ) {
+    hideMenu()
+    hideHelpInfo()
+  }
+}
 
-menuBtn.addEventListener("click", () => {
-  container.classList.toggle("active");  
-  layer.classList.toggle('active');
-  nav.scrollTo(0,0);
-});
-
-closeBtn.addEventListener("click", () => {
-  container.classList.toggle("active");
-  closeMenuComponents();
-});
-
-window.onclick = function(e){
-  if ((!container.contains(e.target) && (!menuBtn.contains(e.target)) && (!helpBtn.contains(e.target)))){    
-    container.classList.remove("active");  
-    closeMenuComponents();
-  };
-};
-
-document.addEventListener("keydown", function(event){
-  if (event.key === "Escape") {
-    container.classList.remove("active");
-    closeMenuComponents();
-  };
-});
-
-// help info window //
-let helpBtn = document.querySelector('.help-btn');
-let helpInfo = document.querySelector('.help-info');
-
-helpBtn.addEventListener("click", () => {
-  layer.classList.toggle('active');
-  helpInfo.classList.toggle('active');
-});
-
-
-
-
+///// Event listeners /////
+window.addEventListener('DOMContentLoaded', dropdownSubmenu);
+menuBtn.addEventListener('click', toggleMenu);
+closeBtn.addEventListener('click', hideMenu);
+document.addEventListener('keydown', hideMenuIfEscapeKey);
+helpBtn.addEventListener('click', showHelpInfo);
+window.addEventListener('click', hideIfClickOutside);
 
 
 
