@@ -102,8 +102,9 @@
 
 .home-section .header-title {
     height: 100%;
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     text-align: right;
+    text-wrap: nowrap;
     font-size: 1.2rem;
     font-weight: 700;
     z-index: 3;
@@ -165,7 +166,8 @@
     fill: url(#lgrad);
   }
 
-.menu-btn:hover, .help-btn:hover{
+.menu-btn:hover, 
+.help-btn:hover {
     cursor: pointer;
     opacity: 0.6;
     transition: opacity 0.1s;
@@ -241,15 +243,18 @@ nav ul li {
     line-height: 4.2rem;
 }
 
-.dropdown, .sub-menu {
+.dropdown, 
+.sub-menu {
     display: block;
 }
 
-.open.dropdown, .open.sub-menu {
+.open.dropdown, 
+.open.sub-menu {
     display: block;
 }
 
-nav ul li a, nav ul li p {
+nav ul li a, 
+nav ul li p {
     display: block;
     text-align: left;
     padding-left: 1.3rem;
@@ -259,12 +264,17 @@ nav ul li a, nav ul li p {
     color: #e0e0e0;
     width: 100%;
     cursor: pointer;    
-    text-transform: capitalize;
+    /* text-transform: capitalize; */
     border-left: 0.3rem solid transparent;
     transition: all .5s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-nav ul li a:hover, nav ul li p:hover {
+nav ul li p {
+    text-transform: capitalize;
+}
+
+nav ul li a:hover, 
+nav ul li p:hover {
     color: var(--whiteColor);
     transition: 0.4s;
     background: linear-gradient(90deg, rgb(0 114 188 / 0.9) 30%, var(--lightBlue) 120%);
@@ -277,7 +287,8 @@ nav ul ul li {
     background: linear-gradient(90deg, rgb(0 0 0 / 0.19) 50%, rgb(0 0 0 / 0.09) 120%);
 }
 
-nav ul ul li a, nav ul ul li p {
+nav ul ul li a, 
+nav ul ul li p {
     font-size: 1.3rem;
     padding-left: 2.5rem;
 }
@@ -286,7 +297,8 @@ nav ul ul ul li {
     line-height: 2.8rem;
 }
 
-nav ul ul ul li a, nav ul ul ul li p {
+nav ul ul ul li a, 
+nav ul ul ul li p {
     padding-left: 5rem;
 }
 
@@ -303,7 +315,14 @@ nav ul ul ul li a, nav ul ul ul li p {
 
 nav .dropdown {    
     font-weight: 700;
-    border-bottom: 0.1rem solid rgb(255 255 255 / 0.1) ;
+    border-bottom: 0.1rem solid rgb(255 255 255 / 0.05);
+}
+
+nav li li,
+nav li li li {    
+    font-weight: 400;    
+    border-top: 0.1rem solid rgb(255 255 255 / 0.05);
+    border-bottom: none;
 }
 
 nav .sub-menu{
