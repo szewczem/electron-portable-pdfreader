@@ -2,47 +2,39 @@ import { pages } from './pages.js';
 
 
 const pageTitle = "EPP";
-let notFound = '<div class="non-pdf-container"><h1>Page not found 404</h1></div>';
+const headerTitle = document.querySelector('.header-title');
 
 ///// Update header title /////
-document.addEventListener('DOMContentLoaded', () => {
-  let headerTitle = document.querySelector('.header-title');  
-  let updateTitle = () => {
-    let hash = window.location.hash;
-    let link = document.querySelector(`a[href="${hash}"]`);
-    if (!hash){
-      link = document.querySelector('a[href="#main"]');
-    } else {
-      link = document.querySelector(`a[href="${hash}"]`);
-    };
-    //console.log(hash);
-    headerTitle.textContent = link.textContent;
+function updateHeaderTitle() {  
+  let hash = window.location.hash;
+  let link = document.querySelector(`a[href="${hash}"]`);
+  if (!hash){
+    link = document.querySelector('a[href="#main"]');
   };
+  headerTitle.textContent = link.textContent;    
+}
 
-  window.addEventListener("hashchange", updateTitle);
-  window.addEventListener('popstate', updateTitle);
-  updateTitle();
-});
-
-let animateTitle = () => {
-  let headerTitle = document.querySelector('.header-title');
+///// Animate header title /////
+function animateHeaderTitle() {
   headerTitle.classList.toggle('active');
 }
 
-window.addEventListener('hashchange', animateTitle);
-window.addEventListener('DOMContentLoaded', animateTitle);
-window.addEventListener('popstate', animateTitle);
-
 ///// Update page content, check if the page is in different html file, capitalize letters /////
-function loadPage(page) {
+function loadPage() {
   const content = document.getElementById("pdf-container");
-  let cover = document.querySelector('.pdf-layer');
-  let hash = window.location.hash.substring(1) || '#main';
-  let found = false;
+
+  let hash = window.location.hash;
+  let page = hash.substring(1);
+  
+  if (!hash) {     // for first run
+    hash = "#main"
+    page = "main"
+  }  
+
+  let link = document.querySelector(`a[href="${hash}"]`)  
 
   ///// For pages in different html file /////
-  if (!hash.includes('_')){    
-    //cover.classList.remove('active');
+  if (!hash.includes('_')){
     fetch(`./pages/${page}.html`).then(response => {
       if (!response.ok) {
         throw new Error(`Page not found: ${page}`);        
@@ -51,90 +43,105 @@ function loadPage(page) {
     })
     .then(html => {
       content.innerHTML = html;
-      //console.log(hash);
       if (page.includes('main')){
         document.title = pageTitle + " || Main Page";
       } else if (page.includes('contact')){
         document.title = pageTitle + " || Contact";
       }
-      found = true;
     })
     .catch(error => {
-      content.innerHTML = `<p>Error loading page: ${error.message}</p>`;      
-      found = true;
+      content.innerHTML = `<p>Error loading page: ${error.message}</p>`;
     });    
   ///// For pages with pdf /////
   } else {
     for (let key in pages) {
-      if (key === hash) {
+      if (key === hash.substring(1)) {
         content.innerHTML = pages[key];
-        found = true;
         break;
       };
     };
-
-    ///// Change app title (newWindow) /////
-    let dropTitle = document.querySelector(`a[href="#${hash}"]`).parentElement.parentElement.parentElement.parentElement.parentElement.childNodes[0].textContent;
-    //console.log(dropTitle);    
-    let subTitle = document.querySelector(`a[href="#${hash}"]`).parentElement.parentElement.parentElement.childNodes[0].textContent;
-    //console.log(subTitle);
-    let headerTitle = document.querySelector('.header-title').textContent;
-
-    document.title = pageTitle + addSeparator(dropTitle, subTitle, headerTitle);   
+    
+    changeAppTitle(link)  
   }
-
   capitalizeWords(".page-title")
   capitalizeWords(".header-title")
-
-  closeMenuComponents();
-  container.classList.remove('active');  
-  layer.classList.remove('active');
-  if (!found) {
-    cover.classList.remove('active');
-    content.innerHTML = notFound;
-    document.title = "404";
-  }
-}
-
-function handleHashChange() {
-  let hash = window.location.hash.substring(1);
-  //console.log(hash);
-  const page = hash || 'main';
-  loadPage(page)
-}
-
-window.addEventListener('hashchange', handleHashChange);
-window.addEventListener('DOMContentLoaded', handleHashChange);
+};
 
 ///// Uppercase the first letter in each word in sentence /////
-function capital_letter(str) {
-  str = str.split(" ");
-  for (let i = 0, x = str.length; i < x; i++) {
-    str[i] = str[i][0].toUpperCase() + str[i].substr(1);
-  };
-  return str.join(" ");
-};
+// function capitalLetter(str) {
+//   str = str.split(" ");
+//   for (let i = 0, x = str.length; i < x; i++) {
+//     str[i] = str[i][0].toUpperCase() + str[i].substr(1);
+//   };
+//   return str.join(" ");
+// };
+
+///// Uppercase the first letter in each word in sentence /////
+function capitalLetter(str) {
+  let chars = str.split('');  
+  for (let i = 0; i < chars.length; i++) {
+    if (i === 0 || chars[i - 1] === ' ') {
+      chars[i] = chars[i].toUpperCase();
+    }
+  }  
+  return chars.join('');
+}
 
 ///// Capitalize letters in displayed text (menu, header) /////
 function capitalizeWords(selector) {
   document.querySelectorAll(selector).forEach(element => {
-    element.textContent = capital_letter(element.textContent)
+    element.textContent = capitalLetter(element.textContent)
   });
+}
+
+///// Get text from parentElement (menu text with arrow) for indicated hash /////
+function getArrowMenuText(link, nestingLevel) {
+  let arrowMenu = link;
+  for (let i = 0; i < nestingLevel; i++) {
+    if (arrowMenu.parentElement) {
+      arrowMenu = arrowMenu.parentElement;
+    }
+  }  
+  if (arrowMenu.childNodes[0].textContent) {
+    const arrowMenuText = arrowMenu.childNodes[0].textContent
+    return arrowMenuText;  
+  } 
 }
 
 ///// Add spearator to app title /////
 function addSeparator(...title) {  
   let treeTitle = ""
   title.forEach((str) => {
-    if (typeof str !== "string") return; // skip non-strings
+    if (typeof str !== "string") return;    // skip non-strings
 
     str = str.trim();
     if (str.length === 0) {
-      return; // skip empty strings
+      return;    // skip empty strings
     } else {
-      treeTitle += " || " + capital_letter(str);
+      treeTitle += " || " + capitalLetter(str);
     }
   });
   return treeTitle;
 }
 
+///// Change app title (on current location - link[hash]), only for pdf pages /////
+function changeAppTitle(link) {
+  let dropTitleText = getArrowMenuText(link, 5);
+  let subTitleText = getArrowMenuText(link, 3);
+  let headerTitleText = headerTitle.textContent;
+  document.title = pageTitle + addSeparator(dropTitleText, subTitleText, headerTitleText);
+}
+
+///// Event listeners /////
+window.addEventListener('DOMContentLoaded', updateHeaderTitle)
+window.addEventListener("hashchange", updateHeaderTitle);
+window.addEventListener('popstate', updateHeaderTitle);
+
+window.addEventListener('DOMContentLoaded', animateHeaderTitle);
+window.addEventListener('hashchange', animateHeaderTitle);
+window.addEventListener('popstate', animateHeaderTitle);
+
+window.addEventListener('hashchange', loadPage);
+window.addEventListener('DOMContentLoaded', loadPage);
+
+window.addEventListener('popstate', hideMenu);

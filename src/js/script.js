@@ -1,23 +1,29 @@
 ///// Open & close dropdown menu /////
 function dropdownSubmenu(){
-  let dropdown = document.querySelectorAll('.dropdown');
+  const dropdown = document.querySelectorAll('.dropdown');
   document.querySelectorAll('.arrow-title').forEach(arrow => {
     arrow.addEventListener('click', (e) => {
-      let dropdownList = e.currentTarget.nextElementSibling;
+      const dropdownList = e.currentTarget.nextElementSibling;
       //console.log(dropdownList);
-      let arrow = e.currentTarget.childNodes[1];  
+      const arrow = e.currentTarget.childNodes[1];  
       //console.log(arrow);
       if (dropdownList.classList.contains('open')){
         dropdownList.classList.remove('open');    
         arrow.classList.remove('active');                     
       } else {
         dropdownList.classList.toggle('open');
-        arrow.classList.toggle('active');
+        arrow.classList.toggle('active');        
         for (i = 0; i < dropdown.length; i++){
-          let submenuList = dropdownList.children[i].children[1];
-          let submenuArrow = dropdownList.children[i].children[0].childNodes[1];
-          submenuList.classList.remove('open');          
-          submenuArrow.classList.remove('active');
+          const submenu = dropdownList.children[i]
+
+          if (!submenu) continue
+          
+          const submenuList = dropdownList.children[i].children[1];
+          const submenuArrow = dropdownList.children[i].children[0].childNodes[1];
+          if (submenuList && submenuArrow) {
+            submenuList.classList.remove('open');
+            submenuArrow.classList.remove('active');
+          }
         }      
       }
     });

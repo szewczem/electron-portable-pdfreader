@@ -1,16 +1,19 @@
 ///// Open hash url in a new window /////
-document.addEventListener('click', (event) => {
+function openNewWindow(event) {
   const target = event.target.closest('a');
-  const url = target.getAttribute('href');
 
-  if (event.shiftKey && !url.includes('http')) {
-    window.electronAPI.openNewWindow(url);
+  if (target && typeof target.getAttribute === 'function') {
+    const url = target.getAttribute('href');
+    
+    if (event.shiftKey && !url.includes('http')) {
+      window.electronAPI.openNewWindow(url);
+    }
   }
 
   if (event.ctrlKey || event.shiftKey) {
     event.preventDefault();
   }
-});
+};
 
 ///// Hide menubar if "newWindow" exist /////
 window.electronAPI.hideDomMenu(() => {
@@ -27,5 +30,6 @@ function sendCurrentHash() {
 }
 
 ////// Update hash on load / when user navigate /////
+window.addEventListener('click', openNewWindow)
 window.addEventListener('DOMContentLoaded', sendCurrentHash);
 window.addEventListener('hashchange', sendCurrentHash);

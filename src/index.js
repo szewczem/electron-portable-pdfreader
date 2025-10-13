@@ -39,24 +39,21 @@ function createWindow() {
   windows.set(0, { win: mainWindow, hashUrl: '#main' });
 
   ///// Open the DevTools /////
-  // mainWindow.webContents.openDevTools(); 
+  mainWindow.webContents.openDevTools(); 
   
   ///// Download PDF /////
   mainWindow.webContents.session.on('will-download', (event, item) => {
     event.preventDefault();
-    const filename = item.getFilename();    // getting pdf name
-    const fileUrl = item.getURL();
-    const fileRelativePath = fileUrl.split('/').filter(part => part);
-    const fileEndPartOfUrl = fileRelativePath.slice(-2).join('/');
+    let filename = item.getFilename();    // getting pdf name
+    let fileUrl = item.getURL();
+    let fileRelativePath = fileUrl.split('/').filter(part => part);
+    let fileEndPartOfUrl = fileRelativePath.slice(-2).join('/');
     let fileDir = fileEndPartOfUrl.slice(0, -17);    // removing pdf viewer settings from src
-    //console.log(fileDir);
-    const pdfSrc = path.join(__dirname, 'doc/' + fileDir)
-    const pdfPath = path.win32.normalize(pdfSrc.replace('file:///', ''));
+    let pdfSrc = path.join(__dirname, 'doc/' + fileDir)
+    let pdfPath = path.win32.normalize(pdfSrc.replace('file:///', ''));
     let savePath = path.join(app.getPath('downloads'), filename);  
-    //console.log(filename);
-    //console.log(pdfSrc);
-    //console.log(savePath);  
-    //console.log(`Downloading: ${pdfPath} to ${savePath}`);
+    // console.log(`Filename: ${filename}`);
+    // console.log(`Downloading: ${pdfPath} to ${savePath}`);
 
     ///// Create custom dialog for downloading /////
     dialog.showSaveDialog({
@@ -64,21 +61,28 @@ function createWindow() {
       defaultPath: savePath,
       filters: [{ name: 'PDF files', extensions: ['pdf'] }]
     }).then(result => {
-      //console.log(result.filePath)
       if (!result.canceled && result.filePath) {
         savePath = result.filePath;
-        //console.log(result.filePath);        
-        fs.copyFileSync(pdfPath, savePath);
+        try {
+          fs.copyFileSync(pdfPath, savePath);
+
+          const now = new Date();
+          fs.utimesSync(savePath, now, now);    // save with current date
+        } catch (err) {
+          console.error('Error copying file:', err);
+        }
       }
-    });    
+    }).catch(err => {
+      console.error('Error in showSaveDialog:', err);
+    });   
   });
 
   ///// Open external url in a default web browser /////
-  mainWindow.webContents.on('will-navigate', function(e, reqUrl) {
+  mainWindow.webContents.on('will-navigate', function(event, reqUrl) {
     //console.log(reqUrl)
     let isExternal = reqUrl.includes('https')
     if(isExternal) {
-      e.preventDefault();
+      event.preventDefault();
       shell.openExternal(reqUrl);
     }
   });
@@ -144,11 +148,11 @@ ipcMain.on('open-new-window', (event, url) => {
   }); 
 
   ///// Open external url in a default web browser /////
-  newWindow.webContents.on('will-navigate', function(e, reqUrl) {
+  newWindow.webContents.on('will-navigate', function(event, reqUrl) {
     //console.log(reqUrl)
     let isExternal = reqUrl.includes('https')
     if(isExternal) {
-      e.preventDefault();
+      event.preventDefault();
       shell.openExternal(reqUrl);
     }
   });
@@ -156,7 +160,6 @@ ipcMain.on('open-new-window', (event, url) => {
 
 ipcMain.on('update-window-url', (event, newHashUrl) => {
   const senderWindow = BrowserWindow.fromWebContents(event.sender);
-
   for (const [id, winObj] of windows.entries()) {
     if (winObj.win === senderWindow) {
       winObj.hashUrl = newHashUrl;

@@ -1,7 +1,7 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap');
+/* @import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed:ital,wght@0,100..900;1,100..900&display=swap'); */
 
 /* Roboto font from local dir, ../fonts/"..." */
-/* @font-face {
+@font-face {
     font-family: 'Roboto Condensed';
     src: url('../fonts/Roboto_Condensed/RobotoCondensed-VariableFont_wght.ttf') format('truetype');
     font-weight: 300 400 700;
@@ -12,7 +12,17 @@
     src: url('../fonts/Roboto_Condensed/RobotoCondensed-Italic-VariableFont_wght.ttf') format('truetype');
     font-weight: 300 400 700;
     font-style: italic;
-} */
+}
+
+:root {
+  --darkBlue: rgb(26, 48, 119);
+  --lightBlue: (0, 114, 188);
+  --whiteColor: #fff;
+  --layerColor: rgba(0, 0, 0, 0.5);
+  --grayColor: #e0e0e0;
+  --transparentWhite: rgb(255 255 255 / 0.05);
+  --pdfGrayBackground: rgb(51,51,51);
+}
 
 *{
     font-family: 'Roboto Condensed', sans-serif;
@@ -20,13 +30,6 @@
     margin: 0;
     box-sizing: border-box;
     caret-color: transparent;
-}
-
-:root {
-    --darkBlue: rgb(26, 48, 119);
-    --lightBlue: rgb(0, 114, 188);
-    --whiteColor: white;
-    --grayColor: #e0e0e0;    
 }
 
 body {    
