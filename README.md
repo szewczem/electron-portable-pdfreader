@@ -1,4 +1,4 @@
-# Electron Portable Application
+# Electron Portable Application v.1.0
 
 ## Description
 Desktop application built with Electron that enables viewing PDF documents. It operates as a single-page application (SPA) and supports working with multiple windows simultaneously. The app allows printing and saving of documents. The user interface is created using HTML, CSS, and JavaScript. It is packaged into a single executable file.
